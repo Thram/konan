@@ -2,23 +2,23 @@
  * Created by thram on 6/04/17.
  */
 import React, { Component, PropTypes } from 'react';
-import { Group as pGroup } from '../../styles/Pure';
+import { FormGroup as pFormGroup } from './Helpers';
 import Element from './Element';
 
-class Group extends Component {
+class FormGroup extends Component {
   static propTypes = { className: PropTypes.string };
   static defaultProps = { className: '' };
 
   setRef = (ref) => {
-    this.element = ref.element;
+    this.element = ref && ref.element;
   };
 
   render = () => <Element
     ref={this.setRef}
     {...this.props}
-    className={`${pGroup} ${this.props.className}`}
+    className={`${pFormGroup} ${this.props.className}`}
   />;
 }
 
 
-export default Group;
+export default FormGroup;

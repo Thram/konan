@@ -3,7 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { omit } from 'lodash';
-import { Button as pButton } from '../../styles/Pure';
+import { Button as pButton } from './Helpers';
 import Element from './Element';
 
 class Input extends Component {
@@ -15,6 +15,7 @@ class Input extends Component {
     hidden: PropTypes.bool,
     hover: PropTypes.bool,
     selected: PropTypes.bool,
+    submit: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -25,21 +26,22 @@ class Input extends Component {
     hidden: false,
     hover: false,
     selected: false,
+    submit: false,
   };
 
   setRef = (ref) => {
-    this.element = ref.element;
+    this.element = ref && ref.element;
   };
 
   render = () => {
-    const { type, active, disabled, hidden, hover, selected } = this.props;
-    const className = pButton({ type, active, disabled, hidden, hover, selected });
+    const { type, active, disabled, hidden, hover, selected, className, submit } = this.props;
+    const baseClass = pButton({ type, active, disabled, hidden, hover, selected });
     return (<Element
-      tag="button"
+      tag={submit ? 'submit' : 'button'}
       ref={this.setRef}
-      {...omit(this.props, ['className', 'type', 'active', 'disabled', 'hidden', 'hover', 'selected'])}
+      {...omit(this.props, ['className', 'type', 'active', 'disabled', 'hidden', 'hover', 'selected', 'submit'])}
       type="button"
-      className={`${className} ${this.props.className}`}
+      className={`${baseClass} ${className}`}
     />);
   }
 }

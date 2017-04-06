@@ -3,7 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { omit } from 'lodash';
-import { Input as pInput } from '../../styles/Pure';
+import { Input as pInput } from './Helpers';
 import Element from './Element';
 
 class Input extends Component {
@@ -20,16 +20,17 @@ class Input extends Component {
   };
 
   setRef = (ref) => {
-    this.element = ref.element;
+    this.element = ref && ref.element;
   };
 
   render = () => {
-    const className = pInput({ fraction: this.props.size, rounded: this.props.rounded });
+    const { size, rounded, className } = this.props;
+    const baseClass = pInput({ fraction: size, rounded });
     return (<Element
       tag="input"
       ref={this.setRef}
       {...omit(this.props, ['className', 'size', 'rounded'])}
-      className={`${className} ${this.props.className}`}
+      className={`${baseClass} ${className}`}
     />);
   }
 }

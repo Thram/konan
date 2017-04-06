@@ -1,8 +1,7 @@
 /**
  * Created by thram on 6/04/17.
  */
-import { pipe } from '../fp';
-import styles from '../stylesheets/purecss.scss';
+import styles from './stylesheets/purecss.scss';
 
 export const WIDTHS = {
   full: '1',
@@ -28,7 +27,7 @@ export const WIDTHS = {
   '19-24': '19-24',
   '20-24': '20-24',
   '21-24': '21-24',
-  '22of24': '22-24',
+  '22-f24': '22-24',
   '23-24': '23-24',
   '24-24': '1',
   '1-12': '2-24',
@@ -77,15 +76,19 @@ export const SIZES = {
   small: 'sm',
   medium: 'md',
   large: 'lg',
-  extra_large: 'xl',
+  extraLarge: 'xl',
 };
+
+const pipe = (...functions) => data =>
+  functions.reduce((value, func) => func(value), data);
 
 const getClass = id => styles[id];
 
 const unitClass = (base, fraction = '1', size) => {
   let className = base;
   if (SIZES[size]) className += `-${SIZES[size]}`;
-  className += `-${WIDTHS[fraction.split(/[/|-]?/).join('-')]}`;
+  const width = WIDTHS[fraction.split(/[/|-]?/).join('-')];
+  if (width) className += `-${WIDTHS[width]}`;
   return className;
 };
 
@@ -134,7 +137,7 @@ export const Form = ({ aligned, stacked }) => pipe(
 
 export const FormGroup = getClass('pure-group');
 
-export const FormMessage = getClass(`${formClass}-form-message`);
+export const FormMessage = getClass(`${formClass}-message`);
 
 export const FormMessageInline = getClass(`${formClass}-message-inline`);
 
@@ -161,13 +164,13 @@ export const Menu = ({ horizontal, fixed, scrollable }) => pipe(
 )([]).join(' ');
 
 const menuItemClass = 'pure-menu-item';
-export const MenuItem = ({ active, selected, disabled, has_children, allow_hover }) => pipe(
+export const MenuItem = ({ active, selected, disabled, hasChildren, allowHover }) => pipe(
   addClass(true, `${menuItemClass}`),
   addClass(active, `${menuClass}-active`),
   addClass(selected, `${menuClass}-selected`),
   addClass(disabled, `${menuClass}-disabled`),
-  addClass(has_children, `${menuClass}-has-children`),
-  addClass(allow_hover, `${menuClass}-allow-hover`),
+  addClass(hasChildren, `${menuClass}-has-children`),
+  addClass(allowHover, `${menuClass}-allow-hover`),
 )([]).join(' ');
 
 export const MenuList = getClass('pure-menu-list');
@@ -190,7 +193,7 @@ export const Table = ({ bordered, horizontal, striped }) => pipe(
 
 export const TableRowOdd = getClass('pure-table-odd');
 
-export const Unit = ({ fraction = WIDTHS.full, size }) => getClass(unitClass('pure-u', fraction, size));
+export const Unit = (options = {}) => getClass(unitClass('pure-u', options.fraction || WIDTHS.full, options.size));
 
 export default {
   Hidden,

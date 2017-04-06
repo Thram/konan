@@ -3,7 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { omit } from 'lodash';
-import { Form as pForm } from '../../styles/Pure';
+import { Form as pForm } from './Helpers';
 import Element from './Element';
 
 class Form extends Component {
@@ -20,16 +20,17 @@ class Form extends Component {
   };
 
   setRef = (ref) => {
-    this.element = ref.element;
+    this.element = ref && ref.element;
   };
 
   render = () => {
-    const className = pForm({ stacked: this.props.stacked, aligned: this.props.aligned });
+    const { stacked, aligned, className } = this.props;
+    const baseClass = pForm({ stacked, aligned });
     return (<Element
       tag="form"
       ref={this.setRef}
       {...omit(this.props, ['className', 'stacked', 'aligned'])}
-      className={`${className} ${this.props.className}`}
+      className={`${baseClass} ${className}`}
     />);
   }
 }

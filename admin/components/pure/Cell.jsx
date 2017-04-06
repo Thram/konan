@@ -3,7 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { assign, map, omit } from 'lodash';
-import { Unit } from '../../styles/Pure';
+import { Unit } from './Helpers';
 import Element from './Element';
 
 class Column extends Component {
@@ -20,19 +20,20 @@ class Column extends Component {
   };
 
   setRef = (ref) => {
-    this.element = ref.element;
+    this.element = ref && ref.element;
   };
 
   render = () => {
-    const className = map({ base: this.props.size, ...this.props.mediaQueries },
-      (fraction, size) => Unit({
+    const { size, mediaQueries, className } = this.props;
+    const baseClass = map({ base: size, ...mediaQueries },
+      (fraction, s) => Unit({
         fraction,
-        size,
+        size: s,
       })).join(' ');
     return (<Element
       ref={this.setRef}
       {...omit(this.props, ['mediaQueries', 'className', 'size'])}
-      className={`${className} ${this.props.className}`}
+      className={`${baseClass} ${className}`}
     />);
   }
 }

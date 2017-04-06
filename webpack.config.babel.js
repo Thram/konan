@@ -5,8 +5,8 @@ import HtmlwebpackPlugin from 'html-webpack-plugin';
 
 const INDEX_HTML_SETUP = {
   template: 'node_modules/html-webpack-template/index.ejs',
-  title: 'Showroom',
-  appMountId: 'showroom',
+  title: 'Konan',
+  appMountId: 'konan',
   meta: [
     {
       name: 'viewport',
@@ -18,7 +18,7 @@ const INDEX_HTML_SETUP = {
 
 export default {
   cache: true,
-  entry: `${__dirname}/src/index`,
+  entry: `${__dirname}/admin/index`,
   output: {
     path: `${__dirname}/dist`,
     filename: '[name].js',
@@ -26,19 +26,23 @@ export default {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  devtool: 'eval-cheap-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       // {
       //   test: /\.jsx?$/,
       //   enforce: 'pre',
       //   use: ['eslint-loader'],
-      //   include: `${__dirname}/src`,
+      //   include: `${__dirname}/admin`,
       // },
-      { test: /\.jsx?$/, use: 'babel-loader?cacheDirectory=true', include: `${__dirname}/src/` },
+      { test: /\.jsx?$/, use: 'babel-loader?cacheDirectory=true', include: `${__dirname}/admin/` },
       { test: /\.(jpe?g|png|gif|svg)$/i, use: 'file-loader?name=images/[name].[ext]' },
       { test: /\.(mp3)$/i, use: 'file-loader?name=audio/[name].[ext]' },
       { test: /\.(otf)$/i, use: 'file-loader?name=fonts/[name].[ext]' },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
       {
         test: /\.scss$/,
         use: ['style-loader', {
