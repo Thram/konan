@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Group, Cell } from '../pure';
+import Hero from '../layouts/Hero';
 
 class Layouts extends Component {
   componentDidMount() {
@@ -10,11 +11,7 @@ class Layouts extends Component {
   }
 
   render = () => (
-    <Group>
-      <Cell>
-        <h1>Layouts</h1>
-      </Cell>
-    </Group>
+    <Hero />
   );
 
 }

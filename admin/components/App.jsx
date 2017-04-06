@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { map } from 'lodash';
 import Router, { goRoute } from './Router';
-import SideBar from './layout/SideBar';
+import SideBar from './SideBar';
 import { Group, Cell } from './pure';
 import { Home, Layouts, Pages, Templates, Widgets } from './views';
 
@@ -26,13 +26,13 @@ const getRef = ref => console.log(ref && ref.element);
 
 class App extends Component {
   render = () => (
-    <Group>
+    <Group tag="section">
       <Cell ref={getRef} size="2/12" style={{ height: '100%', backgroundColor: '#E47267' }}>
         <SideBar
           menu={routes}
         />
       </Cell>
-      <Cell size="10/12">
+      <Cell size="10/12" id="cell">
         <Router routes={routes} />
       </Cell>
     </Group>)
