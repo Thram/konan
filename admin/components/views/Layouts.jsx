@@ -2,16 +2,41 @@
  * Created by thram on 21/01/17.
  */
 import React, { Component } from 'react';
-import { Group, Cell } from '../pure';
-import Hero from '../layouts/Hero';
+import Landing from '../templates/Landing';
+
+const ARTICLES = [
+  {
+    title: 'Article',
+    text: 'asdada as ad a sda d ad a dadada ',
+  },
+  {
+    title: 'Article',
+    text: 'asdada as ad a sda d ad a dadada ',
+  },
+  {
+    title: 'Article',
+    text: 'asdada as ad a sda d ad a dadada ',
+  },
+  {
+    title: 'Article',
+    text: 'asdada as ad a sda d ad a dadada ',
+  },
+];
 
 class Layouts extends Component {
-  componentDidMount() {
-    console.log('Layouts mounted!');
-  }
+
+  getData = () => ({
+    hero: {
+      src: 'https://i.ytimg.com/vi/TraUBFIuqvk/maxresdefault.jpg',
+      title: 'X-Men',
+      info: 'Saving the mutant specie',
+    },
+    recentArticles: ARTICLES,
+    relatedArticles: ARTICLES,
+  });
 
   render = () => (
-    <Hero />
+    <Landing data={this.getData()} />
   );
 
 }

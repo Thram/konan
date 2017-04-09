@@ -2,17 +2,24 @@
  * Created by thram on 21/01/17.
  */
 import React, { Component } from 'react';
+import { map } from 'lodash';
+import templates from '../templates';
 import { Group, Cell } from '../pure';
 
 class Pages extends Component {
-  componentDidMount() {
-    console.log('Pages mounted!');
-  }
+
 
   render = () => (
     <Group>
       <Cell>
-        <h1>Pages</h1>
+        {map(templates, (component, name) => <div key={name}>
+          <h2>{name}</h2>
+          <ul>
+            {map(component.getSignature(), (value, key) => <li
+              key={key}
+            >{key}:{JSON.stringify(value)}</li>)}
+          </ul>
+        </div>)}
       </Cell>
     </Group>
   );
