@@ -3,6 +3,7 @@
  */
 import _assign from 'lodash/assign';
 import _omit from 'lodash/omit';
+import _map from 'lodash/map';
 import _find from 'lodash/find';
 import { parse, stringify } from 'qs';
 import React, { Component, PropTypes } from 'react';
